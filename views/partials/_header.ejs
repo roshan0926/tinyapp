@@ -9,18 +9,16 @@
         <a class="nav-item nav-link" href="/urls">My URLs</a>
         <a class="nav-item nav-link" href="/urls/new">Create New URL</a>
       </div>
-      <% if (username) {%>
-       <a class="nav-item nav-link" >logged in as: <%= username.username%></a> 
-       <form action="/logout" method="POST"><button type="submit" class="btn btn-primary" >Log out</button></form>
-        <% } else {%>
-      <form class= "form-horizontal" action="/login" method="POST">
-        <div class= "row align-items-center">
-          <lable for="Username">Sign In here:</lable> 
-        <input class="form-control" type="text" name="username" placeholder="Input your Username" style="width: 300px; margin: 1em">
-        <button type="submit" class="btn btn-primary" >Sign In</button>
-        </div>
-      </form>
-      <% } %>
+      <% if (locals.user) {%>
+        <a class="nav-item nav-link" >logged in as: <%= locals.user.email%></a> 
+        <form action="/logout" method="POST"><button type="submit" class="btn btn-primary" >Log out</button></form>
+         <% } else {%>
+          <a href="/login">
+          <button type="submit" class="btn btn-primary" >Log In</button>
+          <a href='/register'> 
+         <button type="submit" class="btn btn-primary" >Register Now</button>
+        </a>
+       <% } %>
     </div>
   </nav>
 </header>
