@@ -7,14 +7,14 @@
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
         <a class="nav-item nav-link" href="/urls">My URLs</a>
-        <% if (locals.userId) { %>
+        <% if (user) { %>
           <a class="nav-item nav-link" href="/urls/new">Create New URL</a>
           <% } else { %>
           <a class="nav-item nav-link" href="/login">Create New URL</a>
           <% } %>
       </div>
-      <% if (locals.userId) {%>
-        <a class="nav-item nav-link" >logged in as: <%= locals.user.email%></a> 
+      <% if (user) {%>
+        <a class="nav-item nav-link" >logged in as: <%= user.email%></a> 
         <form action="/logout" method="POST"><button type="submit" class="btn btn-primary" >Log out</button></form>
          <% } else {%>
           <a href="/login">
