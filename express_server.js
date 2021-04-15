@@ -45,8 +45,8 @@ app.get("/u/:shortURL", (req, res) => {
     user = users[req.session.user_id];
   }
   const shortURL = req.params.shortURL;
-  const longURL = urlDatabase[`${shortURL}`];
-  const templateVars = {shortURL, longURL, userId: req.session.user_id, user, urls: urlDatabase};
+  const longURL = urlDatabase[shortURL];
+  const templateVars = {shortURL, longURL, userId: req.session.user_id, user};
   res.render("urls_show", templateVars);
 });
 app.get("/urls", (req, res) => {
@@ -74,7 +74,7 @@ app.post("/urls/:shortURL/delete", (req, res) => {
 app.post("/urls/:shortURL", (req, res) => {
   const shortURL = req.params.shortURL;
   const longURL = req.body.longURL;
-  urlDatabase[shortURL] = longURL;
+  urlDatabase[shortURL] = {longURL, userID: req.session.user_id};
   res.redirect('/urls');
 });
 app.post('/logout', function(req, res) {
