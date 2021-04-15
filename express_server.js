@@ -123,7 +123,7 @@ app.post("/urls/:shortURL", (req, res) => {
   urlDatabase[shortURL] = { longURL, userID: req.session.user_id };
   res.redirect('/urls');
 });
-app.post('/logout', function (req, res) {
+app.post('/logout', function(req, res) {
   req.session['user_id'] = null;
   res.redirect('/urls');
 });
@@ -138,14 +138,14 @@ app.get('/register', (req, res) => {
 });
 app.post('/register', (req, res) => {
   if (!req.body.email || !req.body.password) {
-    const errorMessage = 'Error: your imput field was empty'
+    const errorMessage = 'Error: your imput field was empty';
     res.status(400).render('urls_error', { user: users[req.session.user_id], errorMessage });
     return;
   }
   for (const lookup in users) {
     if (req.body.email === users[lookup].email) {
-      const errorMessage = 'Error: this email adress already has an account'
-      res.status(400).render('urls_error', { user: users[req.session.user_id], errorMessage })
+      const errorMessage = 'Error: this email adress already has an account';
+      res.status(400).render('urls_error', { user: users[req.session.user_id], errorMessage });
       return;
     }
   }
@@ -173,15 +173,15 @@ app.post('/login', (req, res) => {
   let user = findUserbyEmail(testEmail, users);
   console.log(user);
   if (user === undefined) {
-    const errorMessage = 'Error: this email adress does not have an account'
-    res.status(403).render('urls_error', { user: users[req.session.user_id], errorMessage })
+    const errorMessage = 'Error: this email adress does not have an account';
+    res.status(403).render('urls_error', { user: users[req.session.user_id], errorMessage });
   } else if (user.password && bcrypt.compareSync(testPassword, user.password)) {
     req.session.user_id = user.id;
     res.redirect('/urls');
   } else if ((user.password && !bcrypt.compareSync(testPassword, user.password))) {
-      const errorMessage = 'Error: incorrect password'
-      res.status(403).render('urls_error', { user: users[req.session.user_id], errorMessage });
-    }
+    const errorMessage = 'Error: incorrect password';
+    res.status(403).render('urls_error', { user: users[req.session.user_id], errorMessage });
+  }
   // console.log(users);
 });
 app.get("/urls.json", (req, res) => {
